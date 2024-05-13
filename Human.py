@@ -101,6 +101,29 @@ class Human:
         print(f"{day:-^50}")
         indexes_name = f"{self.name}`s indexes"
         print(f"{indexes_name:-^50}")
+        print(f"Money: {self.money}")
+        print(f"Satiety: {self.satiety}")
+        print(f"Gladness: {self.gladness}")
+        home_indexes = "Home indexes"
+        print(f"{home_indexes:-^50}")
+        print(f"Food - {self.home.food}")
+        print(f"Mess - {self.home.mess}")
+        car_indexes = f"{self.car.brand} car indexes"
+        print(f"{car_indexes:-^50}")
+        print(f"Fuel - {self.car.fuel}")
+        print(f"Strength - {self.car.strength}")
+
+    def is_alive(self):
+        if self.gladness <= 0:
+            print("Depression...")
+            return False
+        if self.satiety <= 0:
+            print("Dead...")
+            return False
+        if self.money <= -100:
+            print("Bankrupt...")
+            return False
+
 
     def chill(self): #homework
         self.gladness += 10
