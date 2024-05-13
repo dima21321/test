@@ -1,4 +1,6 @@
+import random
 from random import choice
+from random import randint
 
 
 # class Human:
@@ -95,7 +97,7 @@ class Human:
             print("I`m happy!")
             self.money -= 10
             self.gladness += 20
-            self.satiety += 2
+            self.satiety += 10
     def days_indexes(self, day): # -----Day 1------
         day = f"Today the {day} of {self.name}`s life"
         print(f"{day:-^50}")
@@ -125,15 +127,68 @@ class Human:
             return False
 
 
+    def life(self, day):
+        if self.is_alive() == False:
+            return False
+        if day // 5 == 1:
+            self.home.mess += 5
+        if self.home is None:
+            print("Settle in the house!")
+            self.get_home()
+        if self.car is None:
+            self.get_car()
+            print(f"I bought a car {self.car.brand}")
+        if self.job is None:
+            self.get_job()
+            print(f"I`m working {self.job.work} with salary {self.job.salary}")
+
+        self.days_indexes(day)
+        dice = random.randint(1,4)
+        if self.satiety < 10:
+            print("Time to eat!")
+            self.eat()
+        elif self.gladness < 5:
+            print("Time to chill")
+            self.chill()
+        elif self.money <= 5:
+            print("Time to work")
+            self.work()
+        elif self.car.strength < 5:
+            print("Time to repair")
+            self.to_repair()
+        if dice == 1:
+            print("Time to chill")
+            self.chill()
+        elif dice == 2:
+            print("Lets go to work")
+            self.work()
+        elif dice == 3:
+            print("Cleaning home")
+            self.clean_home()
+        elif dice == 4:
+            print("I`m happy")
+            manage = "delicacies"
+            self.shopping(manage)
+
     def chill(self): #homework
-        self.gladness += 10
-        self.money -= 5
+        self.gladness += 15
+        self.satiety -= 5
+        self.home.mess += 5
 
     def to_repair(self): #homework
-        self.money -= 200
+        if self.car.strength <= 40:
+            self.car.strength += 60
+            self.money -= 300
+        elif 40 < self.car.strength <= 70:
+            self.car.strength += 40
+            self.money -= 200
+        elif self.car.strength > 70:
+            print("Your car in great condition!")
 
     def clean_home(self): #homework
-        self.gladness -= 6
+        self.gladness -= 7
+        self.satiety -= 3
+        self.home.mess = 0
 
 
 
@@ -177,6 +232,9 @@ auto = {"BMW": {"fuel": 50, "strength": 100, "consumption": 18},
         "OPEL":{"fuel": 30, "strength": 60, "consumption": 12},
         "FORD":{"fuel": 35, "strength": 80, "consumption": 10}}
 
-nick = Human(name="Ivan")
+nick = Human("Ivan")
+for day in range(1, 366):
+    if nick.life(day) == False:
+        break
 
 
